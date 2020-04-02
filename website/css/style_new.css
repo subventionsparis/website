@@ -573,6 +573,57 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 
+/* Services Section
+--------------------------------*/
+/*#services {
+  background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url("../img/services-bg.jpg") fixed center center;
+  background-size: cover;
+  padding: 80px 0 60px 0;
+}*/
+
+#qui .qui-item {
+  margin-bottom: 20px; 
+}
+
+#qui .qui-icon {
+  float: left;
+  background: #03C4EB;
+  padding: 12px; 
+  border-radius: 50%;
+  transition: 0.5s;
+  border: 1px solid #03C4EB;
+}
+
+#qui .qui-icon i {
+  color: #fff;
+  font-size: 24px;
+}
+
+#qui .qui-item:hover .qui-icon {
+  background: #fff;
+}
+
+#qui .qui-item:hover .qui-icon i {
+  color: #03C4EB;
+}
+
+#qui .qui-icontitle {
+  margin-left: 80px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+#qui .qui-icontitle a {
+  color: #111;
+}
+
+#qui .qui-icondescription {
+  margin-left: 80px;
+  line-height: 24px;
+} 
+
+
 
 /* Ou Section
 --------------------------------*/
@@ -890,3 +941,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-size: 13px;
   color: #ccc;
 }
+
+
+
+
+.box { display:inline-block; }
