@@ -1,2 +1,0 @@
-REPL: https://repl.it/join/ecoledhh-jccen
-HTML/CSS template: https://bootstrapmade.com/imperial-free-onepage-bootstrap-theme/
