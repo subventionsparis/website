@@ -1,0 +1,105 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 750px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "chocolate", "id": "Id\u00e9e \u0026 opinion", "label": "Id\u00e9e \u0026 opinion", "shape": "dot", "size": 17.28411140052094, "title": "Nombres d\u0027associations : 228 \u003cbr\u003e\u003cbr\u003eExemples d\u0027association:\u003cbr\u003e\u003cbr\u003eLa maison des foug\u00e8res\u003cbr\u003edisco alto\u003cbr\u003e Genre et ville\u003cbr\u003e Les fripons\u003cbr\u003elLa sc\u00e8ne du balcon\u003cbr\u003e Generation Freedom Ride - Le Collectif\u003cbr\u003eForum des institus culturels \u00e9trangers de Paris\u003cbr\u003eAssociation deci-dela\u003cbr\u003eL\u0027impossible\u003cbr\u003e..."}, {"color": "orange", "id": "Technique \u0026 Recherche", "label": "Technique \u0026 Recherche", "shape": "dot", "size": 17.474454017231015, "title": "Nombres d\u0027associations : 247 \u003cbr\u003e\u003cbr\u003eExemples d\u0027association:\u003cbr\u003e\u003cbr\u003eL\u0027\u00eele aux langues\u003cbr\u003eLes atiomes crochus\u003cbr\u003eLe garage num\u00e9rique\u003cbr\u003eFemmes au-del\u00e0 des mers\u003cbr\u003eMode et handicap c\u0027est possible!\u003cbr\u003eWe love gree\u003cbr\u003eLe laboratoire de la cr\u00e9ation\u003cbr\u003eDoc\u0027up\u003cbr\u003eLes designers \u00e9thiques\u003cbr\u003e..."}, {"color": "darkkhaki", "id": "Humanitaire", "label": "Humanitaire", "shape": "dot", "size": 20.580044079342816, "title": "Nombres d\u0027associations : 557 \u003cbr\u003e\u003cbr\u003eExemples d\u0027association:\u003cbr\u003e\u003cbr\u003eNour\u003cbr\u003eAmiti\u00e9 Madagascar Ile-de-France\u003cbr\u003eCroix Rouge Fran\u00e7aise (Nationale)\u003cbr\u003eLes \u00e9crans de la paix\u003cbr\u003eEquipes d\u0027action contre le prox\u00e9n\u00e9tisme\u003cbr\u003eCoalition internationale sida (CIS)\u003cbr\u003eAquissistance\u003cbr\u003eFrance-Fraternit\u00e9s\u003cbr\u003eSos Casamance\u003cbr\u003eInitiative developpement\u003cbr\u003e..."}, {"color": "darkolivegreen", "id": "Relations internationales", "label": "Relations internationales", "shape": "dot", "size": 19.688439190542976, "title": "Nombres d\u0027associations : 468 \u003cbr\u003e\u003cbr\u003eExemples d\u0027association:\u003cbr\u003e\u003cbr\u003eSkite\u003cbr\u003eParis et Compagnie\u003cbr\u003e Sol do Sul Soleil du Sud \u003cbr\u003eAd\u00e9quations\u003cbr\u003eFonds Solidarit\u00e9 Sida Afrique\u003cbr\u003e Aterlier musical des trois tambours\u003cbr\u003eEsprit d\u0027\u00e9b\u00e8ne \u003cbr\u003eAmicale Dax\u003cbr\u003eFonds Solidarit\u00e9 Sida Afrique\u003cbr\u003e..."}, {"color": "rosybrown", "id": "M\u00e9moire", "label": "M\u00e9moire", "shape": "dot", "size": 19.337808054498097, "title": "Nombres d\u0027associations : 433 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eMetropop\u0027\u003cbr\u003e Compagnie Man lala\u003cbr\u003eFestival images, dioversit\u00e9s et \u00e9galit\u00e9\u003cbr\u003eLibert\u00e9 M\u00e9moire\u003cbr\u003eCercle d\u0027action pour la promotion de la diversit\u00e9\u003cbr\u003eBleur comme une orange\u003cbr\u003eSoulajah for art\u003cbr\u003eCompagnie Resonances\u003cbr\u003eB\u00e2tisseuses de paix\u003cbr\u003eEGAM - European Grassroots Antiracist Movement\u003cbr\u003e..."}, {"color": "khaki", "id": "Architecture \u0026 urbanisme", "label": "Architecture \u0026 urbanisme", "shape": "dot", "size": 16.442596674013224, "title": "Nombres d\u0027associations : 144 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eRobins des villes\u003cbr\u003ePlace 2 B\u003cbr\u003eCochenko\u003cbr\u003eR\u00e9seau Vivacit\u00e9s Ile-de-France\u003cbr\u003eDs Urba Consultants\u003cbr\u003eFNE Ile-de-France\u003cbr\u003eDocomo France\u003cbr\u003eAteliers Ville\u003cbr\u003eRelief\u003cbr\u003e..."}, {"color": "darkorange", "id": "Environnement \u0026 \u00e9cologie", "label": "Environnement \u0026 \u00e9cologie", "shape": "dot", "size": 21.491685033059508, "title": "Nombres d\u0027associations : 648 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eAntanak\u003cbr\u003eLa petite rockette\u003cbr\u003eGar\u0027Eden\u003cbr\u003eLa ressourcerie cr\u00e9ative\u003cbr\u003eRetour vert le future\u003cbr\u003eLes pas sages\u003cbr\u003eLes parques\u003cbr\u003eExtramuros l\u0027association\u003cbr\u003eAssociation d\u00e9dale\u003cbr\u003eFestival du livre et de la presse d\u0027\u00e9cologie\u003cbr\u003eR\u00e9seau environnement sant\u00e9\u003cbr\u003e... "}, {"color": "peru", "id": "Sport", "label": "Sport", "shape": "dot", "size": 28.143658585453814, "title": "Nombres d\u0027associations : 1312 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations: \u003cbr\u003e\u003cbr\u003e Paris est mouv\u0027\u003cbr\u003eLes d\u00e9gommeuses\u003cbr\u003eLa libellule de Paris\u003cbr\u003eParis Amicale Camou\u003cbr\u003eEsp\u00e9rance Paris 19\u00e8me\u003cbr\u003eEduc\u0027 hand\u003cbr\u003eCarrefour 14 \u003cbr\u003eEsprit, savoir, sport et \u00e9quit\u00e9 - Esse\u003cbr\u003eAssociation du sport et des loisirs\u003cbr\u003e..."}, {"color": "olive", "id": "D\u00e9fense des droits et des int\u00e9r\u00eats", "label": "D\u00e9fense des droits et des int\u00e9r\u00eats", "shape": "dot", "size": 20.980765377679823, "title": "Nombres d\u0027associations : 597 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e \u003cbr\u003eJets d\u0027encre\u003cbr\u003e Mouvement du nid\u003cbr\u003e Florimont\u003cbr\u003e France Libert\u00e9s - Fondation Danielle Mitterrand\u003cbr\u003eCitoyennet\u00e9 possible\u003cbr\u003e Droits d\u0027urgence\u003cbr\u003e La maison des journalistes\u003cbr\u003e Elan du monde\u003cbr\u003e Associations \"Juris Secours\"\u003cbr\u003e ..."}, {"color": "red", "id": "Loisirs", "label": "Loisirs", "shape": "dot", "size": 24.727509517130834, "title": "Nombres d\u0027associations : 971 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eL\u0027\u00e9toile du Nord\u003cbr\u003eParis bulles plong\u00e9e\u003cbr\u003eL\u0027apprenti musicien\u003cbr\u003eL\u0027aire \u00e0 mots\u003cbr\u003eLa camillienne\u003cbr\u003eEntre Aide\u003cbr\u003eLes Plateaux sauvages\u003cbr\u003eOok\u003cbr\u003eMelodiball\u003cbr\u003eAtelier des Epinettes\u003cbr\u003eLa compagnie \u00e0 l\u0027aff\u00fbt\u003cbr\u003e..."}, {"color": "darkgoldenrod", "id": "Emploi", "label": "Emploi", "shape": "dot", "size": 20.11921458625526, "title": "Nombres d\u0027associations : 511 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eR\u00e9ussir moi aussi\u003cbr\u003eChantier \u00e9cole Ile-de-France\u003cbr\u003e 1000 visages production\u003cbr\u003eMove on, jeunesse en mouvement\u003cbr\u003eLa Maizon\u003cbr\u003eTraverses Parcours\u003cbr\u003eZF insertion\u003cbr\u003eEtudes et chantiers Ile-de-France\u003cbr\u003eBoutique de Gestion Paris Ile-de-France\u003cbr\u003eEnsemble Paris Emploi comp\u00e9tences\u003cbr\u003e..."}, {"color": "gold", "id": "Vie et animation locale", "label": "Vie et animation locale", "shape": "dot", "size": 34.84572230014025, "title": "Nombres d\u0027associations : 1981 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e \u003cbr\u003eArc - Equipes d\u0027amiti\u00e9\u003cbr\u003e Association des tunisiens de FRance\u003cbr\u003eVue d\u0027ensemble\u003cbr\u003eMains agiles\u003cbr\u003eActions Jeunes AJ\u003cbr\u003eVivre ensemble \u00e0 Maroc Tanger\u003cbr\u003eAccueil goutte d\u0027or\u003cbr\u003eApertura\u003cbr\u003eVie Mouffetard\u003cbr\u003e..."}, {"color": "brown", "id": "Sant\u00e9", "label": "Sant\u00e9", "shape": "dot", "size": 23.37507513524344, "title": "Nombres d\u0027associations : 836 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eMigratins Sant\u00e9 France\u003cbr\u003e Association avenir Sant\u00e9 France\u003cbr\u003eCroix Rouge Fran\u00e7aise\u003cbr\u003eCaramel\u003cbr\u003eAssociation sportive des jeunes sourds de Paris\u003cbr\u003eCurial Boxing Team\u003cbr\u003ePro Aid Autisme\u003cbr\u003eEpilepsie-France\u003cbr\u003eSidaction\u003cbr\u003eEau et vie France Acouph\u00e8nes\u003cbr\u003e..."}, {"color": "burlywood", "id": "Tourisme", "label": "Tourisme", "shape": "dot", "size": 16.372470446804247, "title": "Nombres d\u0027associations : 137 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eLa Faubourg Saint-Germain\u003cbr\u003eA suivre\u003cbr\u003e Les Chant des Chapeaux\u003cbr\u003ePlanet Roller\u003cbr\u003eInstitue Fran\u00e7ais du Tourisme\u003cbr\u003eParis Macadam\u003cbr\u003eLa Kinnor\u003cbr\u003eUCPA Sport Vacances\u003cbr\u003eRenouveau Vacances\u003cbr\u003eCan I welcome you ? \u003cbr\u003eEscapade Libert\u00e9 mobilit\u00e9\u003cbr\u003e..."}, {"color": "brown", "id": "Economie", "label": "Economie", "shape": "dot", "size": 17.73492286115007, "title": "Nombres d\u0027associations : 273 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eParis et Compagnie\u003cbr\u003e Paris Initiative Entreprise\u003cbr\u003e Africangels\u003cbr\u003eComit\u00e9 Royale\u003cbr\u003eEspaces\u003cbr\u003eMash up\u003cbr\u003eLa colline du XX\u00e8me si\u00e8cle\u003cbr\u003eClun efficience\u003cbr\u003eCarr\u00e9 de la porte Montmartre\u003cbr\u003eFood de Rue\u003cbr\u003eParis et Compagnie\u003cbr\u003eEspaces\u003cbr\u003eAssociation Mila\u003cbr\u003e..."}, {"color": "darksalmon", "id": "Communication \u0026 m\u00e9dia", "label": "Communication \u0026 m\u00e9dia", "shape": "dot", "size": 19.187537567621717, "title": "Nombres d\u0027associations : 418 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eRaje Paris\u003cbr\u003eParis Est Villages\u003cbr\u003e Mu\u003cbr\u003eLecture Jeunesse\u003cbr\u003eMille et une images\u003cbr\u003e Les voix andalouses\u003cbr\u003e Collectif Ha\u00efti de France\u003cbr\u003eCosmopolitan Arts Productions\u003cbr\u003eL\u0027orchid\u00e9e\u003cbr\u003eTelesorbonne\u003cbr\u003eCollectif Jeune Cin\u00e9ma\u003cbr\u003eMusiques et cultures digitales \u003cbr\u003e..."}, {"color": "maroon", "id": "Pr\u00e9carit\u00e9 \u0026 Exclusion", "label": "Pr\u00e9carit\u00e9 \u0026 Exclusion", "shape": "dot", "size": 23.10458825886596, "title": "Nombres d\u0027associations : 809 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eMigrations Sant\u00e9 France\u003cbr\u003e Place de la culture\u003cbr\u003eComit\u00e9 contre l\u0027esclavage moderne\u003cbr\u003eCrescendo\u003cbr\u003eL\u0027ordre de Malte France\u003cbr\u003eCentre Fran\u00e7ais de Protection\u003cbr\u003eAgis, Note et Innove\u003cbr\u003eAux captifs de la Lib\u00e9ration\u003cbr\u003eM\u00e9decins du monde\u003cbr\u003eAxes Pluriels\u003cbr\u003eFran\u00e7ais Langue d\u0027acceuil\u003cbr\u003e..."}, {"color": "darkred", "id": "Aides aux associations", "label": "Aides aux associations", "shape": "dot", "size": 17.504508114606292, "title": "Nombres d\u0027associations : 250 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e \u003cbr\u003eUn ballon pour l\u0027Insertion\u003cbr\u003eLes jardins num\u00e9riques\u003cbr\u003eAcad\u00e9mie d\u0027armes de France\u003cbr\u003eSalle Saint Bruno\u003cbr\u003eL\u0027\u00eele au Langues\u003cbr\u003eQuartiers du monde \u003cbr\u003eAnima\u0027Fac\u0027\u003cbr\u003eAssociation maiso des volontaires\u003cbr\u003e La p\u00e9pini\u00e8re Mathis\u003cbr\u003eRelais 59\u003cbr\u003eProjets-19\u003cbr\u003e..."}, {"color": "indianred", "id": "Education \u0026 formation", "label": "Education \u0026 formation", "shape": "dot", "size": 43.04047285113204, "title": "Nombres d\u0027associations : 2799 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations: \u003cbr\u003e\u003cbr\u003e ABC pu\u00e9riculture\u003cbr\u003eMains agils\u003cbr\u003ePanorama \u00e9tudes formations conseils\u003cbr\u003e129h production\u003cbr\u003eCentre Fran\u00e7ais de protection\u003cbr\u003eEntraide scolaire amicale\u003cbr\u003eSocrate en classe\u003cbr\u003eSoleil Blaise\u003cbr\u003eOmbre en lumi\u00e8re\u003cbr\u003eNovis education \u0026 co\u003cbr\u003eInfrep Association\u003cbr\u003e..."}, {"color": "peachpuff", "id": "D\u00e9placements et transports", "label": "D\u00e9placements et transports", "shape": "dot", "size": 15.58104588258866, "title": "Nombres d\u0027associations : 58 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eAtelier Parisien d\u0027urbanisme\u003cbr\u003e Mieux se d\u00e9plcaer \u00e0 Bicyclette\u003cbr\u003e L4action de s\u00e9curit\u00e9 routi\u00e8re en Europe\u003cbr\u003eMArch\u00e9 sur l\u0027eau\u003cbr\u003eAgence Parisienne du climat\u003cbr\u003eMobile en ville \u003cbr\u003e Retour vert le futur\u003cbr\u003eSyndicat du logement et de la consommation\u003cbr\u003e..."}, {"color": "firebrick", "id": "Culture \u0026 Arts", "label": "Culture \u0026 Arts", "shape": "dot", "size": 56.30434782608695, "title": "Nombres d\u0027associations : 4123 \u003cbr\u003e \u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eMus\u00e9e d\u0027Art et D\u0027histoire du Juda\u00efsme\u003cbr\u003eOrchestre de chambre de Paris\u003cbr\u003e Slam \u00d4 F\u00e9minin\u003cbr\u003e Socrate En classe\u003cbr\u003e Caf\u00e9zo\u00efde\u003cbr\u003eMusica Andalucia\u003cbr\u003e Le Temps des rues\u003cbr\u003e..."}, {"color": "saddlebrown", "id": "Social", "label": "Social", "shape": "dot", "size": 36.679022240032054, "title": "Nombres d\u0027associations : 2164 \u003cbr\u003e\u003cbr\u003eExemples d\u0027associations:\u003cbr\u003e\u003cbr\u003eSidaction\u003cbr\u003eCentre Fran\u00e7ais de la protection\u003cbr\u003eChinois de France, Fran\u00e7ais de Chine\u003cbr\u003eCroix Rouge Fran\u00e7aise\u003cbr\u003eEntraide scolaire amicale\u003cbr\u003eAssociation de culture berb\u00e8re\u003cbr\u003e Paris est Mouv\u0027\u003cbr\u003e..."}]);
+        edges = new vis.DataSet([]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
